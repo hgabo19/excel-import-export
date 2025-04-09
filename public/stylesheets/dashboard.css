@@ -19,6 +19,32 @@ h1 {
     text-align: center;
 }
 
+div.error-message {
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+    background-color: red;
+    max-width: fit-content;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+}
+
+div.success-message {
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+    background-color: green;
+    max-width: fit-content;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+}
+
 .import-form {
     display: flex;
     justify-content: center;
