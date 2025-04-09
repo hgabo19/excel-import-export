@@ -1,0 +1,102 @@
+body {
+    background-color: aquamarine;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 20px;
+}
+
+main {
+    width: 80%;
+    height: fit-content;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+    text-align: center;
+}
+
+.import-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#excel-file {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.file-input label {
+  display: block;
+  position: relative;
+  width: 200px;
+  height: 50px;
+  border-radius: 25px;
+  background: linear-gradient(40deg, #008000, #04af04);
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform .2s ease-out;
+}
+
+input:hover + label,
+input:focus + label {
+  transform: scale(1.02);
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #2689aa;
+    color: white;
+    font-weight: bolder;
+    font-size: 16px;
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    transition: background-color .5s ease-in-out;
+}
+
+.submit-button:hover {
+    background-color: #04af04;
+}
+
+table {
+    margin: 30px auto;
+    font-size: 18px;
+    border-collapse: collapse;
+}
+
+table thead td {
+    font-weight: bold;
+}
+
+table td {
+    padding: 10px;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #04af04;
+    color: white;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #008000;
+    color: white;
+}
