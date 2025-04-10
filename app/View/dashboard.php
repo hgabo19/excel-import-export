@@ -67,7 +67,7 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <form action="#" class="export-form" method="post">
+        <form action="<?= $exportUrl ?>" class="export-form" method="post">
             <div class="form-fields">
                 <div class="button">
                     <input type="submit" class="submit-button" value="Exportálás">

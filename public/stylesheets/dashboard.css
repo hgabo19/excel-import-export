@@ -30,6 +30,7 @@ div.error-message {
     max-width: fit-content;
     padding: 5px 10px;
     margin-bottom: 20px;
+    box-shadow: 0px 5px 5px rgb(0, 0, 0, .50);
 }
 
 div.success-message {
@@ -43,6 +44,7 @@ div.success-message {
     max-width: fit-content;
     padding: 5px 10px;
     margin-bottom: 20px;
+    box-shadow: 0px 5px 5px rgb(0, 0, 0, .50);
 }
 
 .import-form {
@@ -125,4 +127,8 @@ table tbody tr:nth-child(even) {
 table tbody tr:nth-child(odd) {
     background-color: #008000;
     color: white;
+}
+
+table tbody {
+    box-shadow: 0px 5px 5px rgb(0, 0, 0, .50);
 }

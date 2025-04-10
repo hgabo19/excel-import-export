@@ -5,6 +5,8 @@ namespace App\Model;
 use PDO;
 use PDOException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ExcelModel {
     protected PDO $pdo;
@@ -39,6 +41,30 @@ class ExcelModel {
                 die("Importálás meghiúsult a " . $sku . " cikkszámú terméknél: " . $e->getMessage());
             }
         }
+    }
+
+    public function export() {
+        $products = $this->getProducts();
+
+        $spreadSheet = new Spreadsheet();
+        $activeSheet = $spreadSheet->getActiveSheet();
+
+        $headers = ['Azonosító (ID)', 'Név', 'Cikkszám'];
+        $activeSheet->fromArray($headers, null, 'A1');
+
+        $row = 2;
+        foreach ($products as $product) {
+            $activeSheet->fromArray(array_values($product), null, 'A' . $row);
+            $row++;
+        }
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="termek_export.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer = new Xlsx($spreadSheet);
+        $writer->save('php://output');
+        exit;
     }
 
     /**

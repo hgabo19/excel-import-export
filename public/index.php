@@ -26,6 +26,9 @@ $path = '/' . trim(str_replace($baseUrl, '', $uri), '/');
 if ($path === '/import' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $excelController->import();
     exit;
+} else if ($path === '/export' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $excelController->export();
+    exit;
 }
 
 $excelController->index();

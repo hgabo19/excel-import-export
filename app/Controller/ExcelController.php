@@ -12,27 +12,29 @@ class ExcelController {
     }
 
     public function index() {
-        $data['importUrl'] = $basePath = dirname($_SERVER['SCRIPT_NAME']) . '/import';
-        $data['products'] = $this->ExcelModel->getProducts();
-
-        $this->render('dashboard', $data);
+        $this->renderDashboard();
     }
 
-    public function import() {
+    /**
+     * Adatok importálása
+     * @return void
+     */
+    public function import(): void {
         if (isset($_FILES['excel_file'])) {
             $excelFile = $_FILES['excel_file'];
 
             if($excelFile['error'] !== UPLOAD_ERR_OK) {
                 $_SESSION['error'] = "Hiba fájlfeltöltés közben";
-                $this->render('dashboard');
+                $this->renderDashboard();
                 exit;
             }
 
-            $fileType = strtolower(pathinfo($excelFile['name'], PATHINFO_EXTENSION));
-        
-            if (!in_array($fileType, ['csv', 'xlsx', 'xls'])) {
-                $_SESSION['error'] = "Hibás fájl kiterjesztés. Megfelelő formátumok: .csv, .xlsx, .xls";
-                $this->render('dashboard');
+            $allowedTypes = ['text/csv', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+            $fileType = mime_content_type($excelFile['tmp_name']);
+
+            if (!in_array($fileType, $allowedTypes)) {
+                $_SESSION['error'] = "Hibás fájl típus. Megfelelő formátumok: .csv, .xlsx, .xls";
+                $this->renderDashboard();
                 exit;
             }
 
@@ -40,13 +42,11 @@ class ExcelController {
 
             if ($excelFile['size'] > $maxSize) {
                 $_SESSION['error'] = "Túl nagy méretű fájlt adott meg. Maximum megengedett méret: 2MB";
-                $this->render('dashboard');
+                $this->renderDashboard();
                 exit;
             }
 
             $this->ExcelModel->import($excelFile['tmp_name']);
-
-            $data['products'] = $this->ExcelModel->getProducts();
 
             $_SESSION['success'] = 'Sikeres importálás!';
 
@@ -55,20 +55,31 @@ class ExcelController {
         }
     }
 
-
     /**
-     * Betöltjük a kért view-t
-     *
-     * @param string $viewName
+     * Adatok exportálása
      * @return void
      */
-    private function render(string $viewName, $data = [])
+    public function export(): void
     {
+        $this->ExcelModel->export();
+    }
+
+    /**
+     * Betöltjük a dashboard view-t
+     * @return void
+     */
+    private function renderDashboard(): void
+    {
+        $data['products'] = $this->ExcelModel->getProducts();
+        $data['importUrl'] = dirname($_SERVER['SCRIPT_NAME']) . '/import';
+        $data['exportUrl'] = dirname($_SERVER['SCRIPT_NAME']) . '/export';
+
         $data['success'] = $_SESSION['success'] ?? null;
         $data['error'] = $_SESSION['error'] ?? null;
+
         unset($_SESSION['success'], $_SESSION['error']);
 
         extract($data);
-        require_once __DIR__ . '/../View/' . $viewName . '.php';
+        require_once __DIR__ . '/../View/' . 'dashboard' . '.php';
     }
 }
