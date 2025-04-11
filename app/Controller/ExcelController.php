@@ -22,6 +22,10 @@ class ExcelController {
     public function import(): void {
         if (isset($_FILES['excel_file'])) {
             $excelFile = $_FILES['excel_file'];
+            $deleteProducts = false;
+            if (isset($_REQUEST['delete']) && (int)$_REQUEST['delete'] === 1) {
+                $deleteProducts = true;
+            }
 
             if($excelFile['error'] !== UPLOAD_ERR_OK) {
                 $_SESSION['error'] = "Hiba fájlfeltöltés közben";
@@ -46,7 +50,7 @@ class ExcelController {
                 exit;
             }
 
-            $this->ExcelModel->import($excelFile['tmp_name']);
+            $this->ExcelModel->import($excelFile['tmp_name'], $deleteProducts);
 
             $_SESSION['success'] = 'Sikeres importálás!';
 

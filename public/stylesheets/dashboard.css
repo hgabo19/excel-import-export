@@ -82,6 +82,10 @@ input:focus + label {
   transform: scale(1.02);
 }
 
+.delete-checkbox {
+    margin-top: 20px;
+}
+
 .button {
     display: flex;
     justify-content: center;

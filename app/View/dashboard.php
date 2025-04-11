@@ -32,6 +32,10 @@
                     <input type="file" id="excel-file" name="excel_file" accept=".csv, .xlsx, .xls" />
                     <label for="excel-file">Excel fálj megadása</label>
                 </div>
+                <div class="delete-checkbox">
+                    <input type="checkbox" id="delete" name="delete" value="1">
+                    <label for="delete">Korábbi adatok törlése</label>
+                </div>
                 <div class="button">
                     <input type="submit" class="submit-button" value="Importálás">
                 </div>

@@ -19,13 +19,21 @@ class ExcelModel {
      * Adatkiszedés az excel / csv fájlból, majd feltöltés adatbázisba
      *
      * @param $excelFile
+     * @param boolean $deleteProducts
      * @return void
      */
-    public function import($excelFile) {
+    public function import($excelFile, $deleteProducts): void {
         $spreadSheet = IOFactory::load($excelFile);
         $workSheet = $spreadSheet->getActiveSheet();
 
         $rows = $workSheet->toArray();
+
+        if ($deleteProducts) {
+            $deleteSql = "DELETE FROM products WHERE 1";
+
+            $preparedStatement = $this->pdo->prepare($deleteSql);
+            $preparedStatement->execute();
+        }
 
         $sql = "INSERT INTO products (name, sku) VALUES (?, ?)";
         foreach ($rows as $index => $row) {
