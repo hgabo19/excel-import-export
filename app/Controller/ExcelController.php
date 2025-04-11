@@ -33,7 +33,7 @@ class ExcelController {
                 exit;
             }
 
-            $allowedTypes = ['text/csv', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+            $allowedTypes = ['text/csv', 'text/plain', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
             $fileType = mime_content_type($excelFile['tmp_name']);
 
             if (!in_array($fileType, $allowedTypes)) {
